@@ -1,0 +1,154 @@
+﻿<UserControl x:Class="CarteMinistre2026.Views.CardTemplate"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Width="600" Height="380">
+
+    <UserControl.Resources>
+        <!-- Style pour les titres de champ (ex: "Nom :") -->
+        <Style x:Key="FieldLabelStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Arial"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#1A1A2E"/>
+        </Style>
+
+        <!-- Style pour les valeurs (ex: "MUBUNDU") -->
+        <Style x:Key="FieldValueStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Arial"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Foreground" Value="#1A1A2E"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <!-- Fond de la carte (image du template) -->
+        <Image Source="/Assets/template_carte.jpg" Stretch="Uniform"/>
+
+        <Canvas>
+            <!-- ===== PHOTO (côté gauche) ===== -->
+            <Image x:Name="PhotoImage" 
+                   Canvas.Left="30" Canvas.Top="80"
+                   Width="110" Height="130"
+                   Stretch="UniformToFill"
+                   Source="{Binding Photo, Converter={StaticResource ByteArrayToImageConverter}}"/>
+
+            <!-- ===== EN-TÊTE (titres principaux) ===== -->
+            <TextBlock Canvas.Left="180" Canvas.Top="20"
+                       Text="REPUBLIQUE DEMOCRATIQUE DU CONGO"
+                       FontFamily="Arial" FontSize="13" FontWeight="Bold"
+                       Foreground="#1A1A2E" TextAlignment="Center" Width="380"/>
+
+            <TextBlock Canvas.Left="180" Canvas.Top="38"
+                       Text="ASSEMBLEE CHRETIENNE INTERDENOMINATIONNELLE"
+                       FontFamily="Arial" FontSize="11" FontWeight="Bold"
+                       Foreground="#1A1A2E" TextAlignment="Center" Width="380"/>
+
+            <TextBlock Canvas.Left="180" Canvas.Top="54"
+                       Text="EVECHE DE KINDU"
+                       FontFamily="Arial" FontSize="11" FontWeight="Bold"
+                       Foreground="#1A1A2E" TextAlignment="Center" Width="380"/>
+
+            <TextBlock Canvas.Left="180" Canvas.Top="72"
+                       Text="CARTE MINISTÉRIELLE"
+                       FontFamily="Arial" FontSize="12" FontWeight="Bold"
+                       Foreground="#1A1A2E" TextAlignment="Center" Width="380"/>
+
+            <!-- ===== SECTION IDENTITÉ ===== -->
+            <TextBlock Canvas.Left="180" Canvas.Top="95"
+                       Text="IDENTITÉ"
+                       FontFamily="Arial" FontSize="11" FontWeight="Bold"
+                       Foreground="#1A1A2E" TextDecorations="Underline"/>
+
+            <!-- Ligne 1 : Nom -->
+            <TextBlock Canvas.Left="180" Canvas.Top="115"
+                       Text="Nom :" Style="{StaticResource FieldLabelStyle}"/>
+            <TextBlock Canvas.Left="230" Canvas.Top="115"
+                       Text="{Binding LastName}" Style="{StaticResource FieldValueStyle}"/>
+
+            <!-- Ligne 2 : Post Nom -->
+            <TextBlock Canvas.Left="180" Canvas.Top="133"
+                       Text="Post Nom :" Style="{StaticResource FieldLabelStyle}"/>
+            <TextBlock Canvas.Left="250" Canvas.Top="133"
+                       Text="{Binding PostName}" Style="{StaticResource FieldValueStyle}"/>
+
+            <!-- Ligne 3 : Prénom -->
+            <TextBlock Canvas.Left="180" Canvas.Top="151"
+                       Text="Prénom :" Style="{StaticResource FieldLabelStyle}"/>
+            <TextBlock Canvas.Left="240" Canvas.Top="151"
+                       Text="{Binding FirstName}" Style="{StaticResource FieldValueStyle}"/>
+
+            <!-- Ligne 4 : Lieu & Date de naissance -->
+            <TextBlock Canvas.Left="180" Canvas.Top="169"
+                       Text="Lieu &amp; Date de naissance :" Style="{StaticResource FieldLabelStyle}"/>
+            <TextBlock Canvas.Left="330" Canvas.Top="169"
+                       Text="{Binding BirthPlace}" Style="{StaticResource FieldValueStyle}"/>
+            <TextBlock Canvas.Left="430" Canvas.Top="169"
+                       Text="," Style="{StaticResource FieldLabelStyle}"/>
+            <TextBlock Canvas.Left="440" Canvas.Top="169"
+                       Text="{Binding BirthDate, StringFormat=dd-MM-yyyy}" Style="{StaticResource FieldValueStyle}"/>
+
+            <!-- Ligne 5 : Ministère -->
+            <TextBlock Canvas.Left="180" Canvas.Top="187"
+                       Text="Ministère :" Style="{StaticResource FieldLabelStyle}"/>
+            <TextBlock Canvas.Left="250" Canvas.Top="187"
+                       Text="{Binding Ministry}" Style="{StaticResource FieldValueStyle}"/>
+
+            <!-- Ligne 6 : Fonction -->
+            <TextBlock Canvas.Left="180" Canvas.Top="205"
+                       Text="Fonction :" Style="{StaticResource FieldLabelStyle}"/>
+            <TextBlock Canvas.Left="245" Canvas.Top="205"
+                       Text="{Binding JobTitle}" Style="{StaticResource FieldValueStyle}"/>
+
+            <!-- Ligne 7 : Date Ordination -->
+            <TextBlock Canvas.Left="180" Canvas.Top="223"
+                       Text="Date Ordination :" Style="{StaticResource FieldLabelStyle}"/>
+            <TextBlock Canvas.Left="285" Canvas.Top="223"
+                       Text="{Binding OrdinationDate, StringFormat=dd-MM-yyyy}" Style="{StaticResource FieldValueStyle}"/>
+
+            <!-- ===== TEXTE D'ASSISTANCE ===== -->
+            <TextBlock Canvas.Left="30" Canvas.Top="230"
+                       Text="Les autorités tant civiles que militaire ainsi"
+                       FontFamily="Arial" FontSize="8" FontStyle="Italic"
+                       Foreground="#333333" Width="200"/>
+            <TextBlock Canvas.Left="30" Canvas.Top="242"
+                       Text="que celle de la police sont priées d'apporter"
+                       FontFamily="Arial" FontSize="8" FontStyle="Italic"
+                       Foreground="#333333" Width="200"/>
+            <TextBlock Canvas.Left="30" Canvas.Top="254"
+                       Text="leur assistante Au porteur de la présente."
+                       FontFamily="Arial" FontSize="8" FontStyle="Italic"
+                       Foreground="#333333" Width="200"/>
+
+            <!-- ===== SECTION SCEAU ET DATES (bas de carte) ===== -->
+            <TextBlock Canvas.Left="30" Canvas.Top="300"
+                       Text="Sceau"
+                       FontFamily="Arial" FontSize="9" FontWeight="Bold"
+                       Foreground="#1A1A2E"/>
+
+            <TextBlock Canvas.Left="200" Canvas.Top="290"
+                       Text="Fait à Kindu, le"
+                       FontFamily="Arial" FontSize="9"
+                       Foreground="#1A1A2E"/>
+            <TextBlock Canvas.Left="290" Canvas.Top="290"
+                       Text="{Binding IssueDate, StringFormat=dd-MM-yyyy}" 
+                       FontFamily="Arial" FontSize="9" FontWeight="Bold"
+                       Foreground="#1A1A2E"/>
+
+            <TextBlock Canvas.Left="200" Canvas.Top="308"
+                       Text="Constatée de l'évêque"
+                       FontFamily="Arial" FontSize="9" FontStyle="Italic"
+                       Foreground="#1A1A2E"/>
+
+            <!-- Date d'expiration (en rouge) -->
+            <TextBlock Canvas.Left="400" Canvas.Top="300"
+                       Text="CETTE CARTE EXPIRE LE"
+                       FontFamily="Arial" FontSize="9" FontWeight="Bold"
+                       Foreground="Red"/>
+            <TextBlock Canvas.Left="400" Canvas.Top="316"
+                       Text="{Binding ExpiryDate, StringFormat=dd-MM-yyyy}"
+                       FontFamily="Arial" FontSize="11" FontWeight="Bold"
+                       Foreground="Red"/>
+        </Canvas>
+    </Grid>
+</UserControl>

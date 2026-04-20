@@ -1,0 +1,10 @@
+<Window x:Class="CarteMinistre2026.Views.PrintView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Impression" Height="300" Width="400"
+        Background="#1A1A2E">
+    <Grid>
+        <TextBlock Text="PrintView" Foreground="White" 
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    </Grid>
+</Window>

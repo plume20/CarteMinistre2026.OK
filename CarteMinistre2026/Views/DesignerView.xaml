@@ -1,0 +1,54 @@
+<Window x:Class="CarteMinistre2026.Views.DesignerView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Conception du modèle de carte" 
+        Height="600" Width="900"
+        WindowStartupLocation="CenterOwner"
+        Background="#1A1A2E">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" 
+                   Text="Éditeur de modèle de carte" 
+                   Foreground="#FFFFFF" 
+                   FontSize="20" 
+                   FontWeight="Bold"
+                   Margin="0,0,0,20"/>
+
+        <Border Grid.Row="1" 
+                Background="#2C2C54" 
+                CornerRadius="8"
+                BorderBrush="#3D3D6B" 
+                BorderThickness="1">
+            <TextBlock Text="Zone d'édition du modèle (à implémenter)" 
+                       Foreground="#B0B0B0" 
+                       FontSize="14"
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center"/>
+        </Border>
+
+        <StackPanel Grid.Row="2" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right" 
+                    Margin="0,20,0,0">
+            <Button Content="Enregistrer" 
+                    Width="100" 
+                    Height="35"
+                    Background="#E94560" 
+                    Foreground="#FFFFFF"
+                    BorderThickness="0"
+                    Margin="0,0,10,0"/>
+            <Button Content="Annuler" 
+                    Width="100" 
+                    Height="35"
+                    Background="Transparent" 
+                    Foreground="#808080"
+                    BorderBrush="#3D3D6B" 
+                    BorderThickness="1"/>
+        </StackPanel>
+    </Grid>
+</Window>
