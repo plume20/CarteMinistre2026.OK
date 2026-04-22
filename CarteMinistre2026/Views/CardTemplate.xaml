@@ -34,52 +34,33 @@
                    Source="{Binding Photo, Converter={StaticResource ByteArrayToImageConverter}}"/>
 
             <!-- ===== EN-TÊTE (titres principaux) ===== -->
-            <TextBlock Canvas.Left="180" Canvas.Top="20"
-                       Text="REPUBLIQUE DEMOCRATIQUE DU CONGO"
-                       FontFamily="Arial" FontSize="13" FontWeight="Bold"
-                       Foreground="#1A1A2E" TextAlignment="Center" Width="380"/>
-
-            <TextBlock Canvas.Left="180" Canvas.Top="38"
-                       Text="ASSEMBLEE CHRETIENNE INTERDENOMINATIONNELLE"
-                       FontFamily="Arial" FontSize="11" FontWeight="Bold"
-                       Foreground="#1A1A2E" TextAlignment="Center" Width="380"/>
-
-            <TextBlock Canvas.Left="180" Canvas.Top="54"
-                       Text="EVECHE DE KINDU"
-                       FontFamily="Arial" FontSize="11" FontWeight="Bold"
-                       Foreground="#1A1A2E" TextAlignment="Center" Width="380"/>
-
-            <TextBlock Canvas.Left="180" Canvas.Top="72"
-                       Text="CARTE MINISTÉRIELLE"
-                       FontFamily="Arial" FontSize="12" FontWeight="Bold"
-                       Foreground="#1A1A2E" TextAlignment="Center" Width="380"/>
 
             <!-- ===== SECTION IDENTITÉ ===== -->
-            <TextBlock Canvas.Left="43" Canvas.Top="150"
+            <TextBlock Canvas.Left="53" Canvas.Top="150"
                        Text="IDENTITÉ"
-                       FontFamily="Arial" FontSize="11" FontWeight="Bold"
-                       Foreground="#1A1A2E" TextDecorations="Underline"/>
+                       FontFamily="Arial" FontSize="14" FontWeight="Bold"
+                       Foreground="#1A1A2E" TextDecorations="Underline" Height="17" Width="57" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
             <!-- Ligne 1 : Nom -->
-            <TextBlock Canvas.Left="180" Canvas.Top="115"
-                       Text="Nom :" Style="{StaticResource FieldLabelStyle}"/>
+            <TextBlock Canvas.Left="52" Canvas.Top="172"
+                       Text="Nom :" Style="{StaticResource FieldLabelStyle}" Height="18" Width="37"/>
             <TextBlock Canvas.Left="230" Canvas.Top="115"
                        Text="{Binding LastName}" Style="{StaticResource FieldValueStyle}"/>
 
             <!-- Ligne 2 : Post Nom -->
-            <TextBlock Canvas.Left="180" Canvas.Top="133"
-                       Text="Post Nom :" Style="{StaticResource FieldLabelStyle}"/>
+            <TextBlock Canvas.Left="52" Canvas.Top="190"
+                       Text="Post Nom :" Style="{StaticResource FieldLabelStyle}" RenderTransformOrigin="-1.705,5.718"/>
             <TextBlock Canvas.Left="250" Canvas.Top="133"
                        Text="{Binding PostName}" Style="{StaticResource FieldValueStyle}"/>
 
             <!-- Ligne 3 : Prénom -->
-            <TextBlock Canvas.Left="180" Canvas.Top="151"
+            <TextBlock Canvas.Left="52" Canvas.Top="205"
                        Text="Prénom :" Style="{StaticResource FieldLabelStyle}"/>
             <TextBlock Canvas.Left="240" Canvas.Top="151"
                        Text="{Binding FirstName}" Style="{StaticResource FieldValueStyle}"/>
 
             <!-- Ligne 4 : Lieu & Date de naissance -->
-            <TextBlock Canvas.Left="180" Canvas.Top="169"
+            <TextBlock Canvas.Left="52" Canvas.Top="219"
                        Text="Lieu &amp; Date de naissance :" Style="{StaticResource FieldLabelStyle}"/>
             <TextBlock Canvas.Left="330" Canvas.Top="169"
                        Text="{Binding BirthPlace}" Style="{StaticResource FieldValueStyle}"/>
@@ -89,33 +70,30 @@
                        Text="{Binding BirthDate, StringFormat=dd-MM-yyyy}" Style="{StaticResource FieldValueStyle}"/>
 
             <!-- Ligne 5 : Ministère -->
-            <TextBlock Canvas.Left="180" Canvas.Top="187"
+            <TextBlock Canvas.Left="52" Canvas.Top="237"
                        Text="Ministère :" Style="{StaticResource FieldLabelStyle}"/>
             <TextBlock Canvas.Left="250" Canvas.Top="187"
                        Text="{Binding Ministry}" Style="{StaticResource FieldValueStyle}"/>
 
             <!-- Ligne 6 : Fonction -->
-            <TextBlock Canvas.Left="180" Canvas.Top="205"
+            <TextBlock Canvas.Left="52" Canvas.Top="255"
                        Text="Fonction :" Style="{StaticResource FieldLabelStyle}"/>
             <TextBlock Canvas.Left="245" Canvas.Top="205"
                        Text="{Binding JobTitle}" Style="{StaticResource FieldValueStyle}"/>
 
             <!-- Ligne 7 : Date Ordination -->
-            <TextBlock Canvas.Left="180" Canvas.Top="223"
-                       Text="Date Ordination :" Style="{StaticResource FieldLabelStyle}"/>
+            <TextBlock Canvas.Left="52" Canvas.Top="273"
+                       Text="Date Ordination :" Style="{StaticResource FieldLabelStyle}" RenderTransformOrigin="-0.049,2.503"/>
             <TextBlock Canvas.Left="285" Canvas.Top="223"
                        Text="{Binding OrdinationDate, StringFormat=dd-MM-yyyy}" Style="{StaticResource FieldValueStyle}"/>
 
             <!-- ===== TEXTE D'ASSISTANCE ===== -->
-         
+
 
             <!-- ===== SECTION SCEAU ET DATES (bas de carte) ===== -->
-            <TextBlock Canvas.Left="30" Canvas.Top="300"
-                       Text="Sceau"
-                       FontFamily="Arial" FontSize="9" FontWeight="Bold"
-                       Foreground="#1A1A2E"/>
 
-            <TextBlock Canvas.Left="200" Canvas.Top="290"
+
+            <TextBlock Canvas.Left="396" Canvas.Top="320"
                        Text="Fait à Kindu, le"
                        FontFamily="Arial" FontSize="9"
                        Foreground="#1A1A2E"/>
@@ -124,10 +102,7 @@
                        FontFamily="Arial" FontSize="9" FontWeight="Bold"
                        Foreground="#1A1A2E"/>
 
-            <TextBlock Canvas.Left="200" Canvas.Top="308"
-                       Text="Constatée de l'évêque"
-                       FontFamily="Arial" FontSize="9" FontStyle="Italic"
-                       Foreground="#1A1A2E"/>
+
 
             <!-- Date d'expiration (en rouge) -->
             <TextBlock Canvas.Left="400" Canvas.Top="300"
