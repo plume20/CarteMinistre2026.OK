@@ -23,7 +23,7 @@
 
     <Grid>
         <!-- Fond de la carte (image du template) -->
-        <Image Source="/Assets/template_carte.jpg" Stretch="Uniform"/>
+        <Image Source="/Assets/template_carte2.jpg" Stretch="Uniform"/>
 
         <Canvas>
             <!-- ===== PHOTO (côté gauche) ===== -->
@@ -55,7 +55,7 @@
                        Foreground="#1A1A2E" TextAlignment="Center" Width="380"/>
 
             <!-- ===== SECTION IDENTITÉ ===== -->
-            <TextBlock Canvas.Left="180" Canvas.Top="95"
+            <TextBlock Canvas.Left="43" Canvas.Top="150"
                        Text="IDENTITÉ"
                        FontFamily="Arial" FontSize="11" FontWeight="Bold"
                        Foreground="#1A1A2E" TextDecorations="Underline"/>
@@ -107,18 +107,7 @@
                        Text="{Binding OrdinationDate, StringFormat=dd-MM-yyyy}" Style="{StaticResource FieldValueStyle}"/>
 
             <!-- ===== TEXTE D'ASSISTANCE ===== -->
-            <TextBlock Canvas.Left="30" Canvas.Top="230"
-                       Text="Les autorités tant civiles que militaire ainsi"
-                       FontFamily="Arial" FontSize="8" FontStyle="Italic"
-                       Foreground="#333333" Width="200"/>
-            <TextBlock Canvas.Left="30" Canvas.Top="242"
-                       Text="que celle de la police sont priées d'apporter"
-                       FontFamily="Arial" FontSize="8" FontStyle="Italic"
-                       Foreground="#333333" Width="200"/>
-            <TextBlock Canvas.Left="30" Canvas.Top="254"
-                       Text="leur assistante Au porteur de la présente."
-                       FontFamily="Arial" FontSize="8" FontStyle="Italic"
-                       Foreground="#333333" Width="200"/>
+         
 
             <!-- ===== SECTION SCEAU ET DATES (bas de carte) ===== -->
             <TextBlock Canvas.Left="30" Canvas.Top="300"
