@@ -239,7 +239,9 @@
     <Compile Include="Services\AuthentificationService.cs" />
     <Compile Include="Services\CardRenderer.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="Views\CardTemplate.xaml.cs" />
+    <Compile Include="Views\CardTemplate.xaml.cs">
+      <DependentUpon>CardTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DesignerView.xaml.cs">
       <DependentUpon>DesignerView.xaml</DependentUpon>
     </Compile>

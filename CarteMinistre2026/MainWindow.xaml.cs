@@ -33,8 +33,6 @@ namespace CarteMinistre2026
             Loaded += (s, e) => _viewModel.RefreshCommand.Execute(null);
         }
 
-        public object SelectedEmployee { get; private set; }
-
         private void AboutMenu_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show(
@@ -50,10 +48,9 @@ namespace CarteMinistre2026
         {
             if (SelectedEmployee == null) return;
 
-            var previewView = new PreviewView();
-            previewView.Owner = Application.Current.MainWindow;
-            previewView.SetEmployee(SelectedEmployee);
-            previewView.ShowDialog();
+            var preview = new PreviewView();
+            preview.SetEmployee(SelectedEmployee);
+            CurrentView = preview;
         }
     }
 }

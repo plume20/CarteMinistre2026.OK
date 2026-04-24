@@ -28,7 +28,7 @@
 
         <Canvas>
             <!-- ===== PHOTO (côté gauche) ===== -->
-            <Image x:Name="ImagePhoto" 
+            <Image x:Name="PhotoImage" 
                    Canvas.Left="432" Canvas.Top="181"
                    Width="110" Height="130"
                    Stretch="UniformToFill"/>
@@ -42,7 +42,7 @@
                        Foreground="#1A1A2E" TextDecorations="Underline" Height="17" Width="68" HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
             <!-- Ligne 1 : Nom -->
-            <TextBlock Canvas.Left="53" Canvas.Top="187"
+            <TextBlock x:Name="TxtNom" Canvas.Left="53" Canvas.Top="187"
                        FontSize="14"
                        Text="Nom :" Style="{StaticResource FieldLabelStyle}" Height="18" Width="37" RenderTransformOrigin="0.541,0.926"/>
             <TextBlock Canvas.Left="230" Canvas.Top="115"
@@ -50,7 +50,7 @@
                        Text="{Binding LastName}" Style="{StaticResource FieldValueStyle}"/>
 
             <!-- Ligne 2 : Post Nom -->
-            <TextBlock Canvas.Left="52" Canvas.Top="210"
+            <TextBlock x:Name="TxtPostNom" Canvas.Left="52" Canvas.Top="210"
                        FontSize="14"
                        Text="Post Nom :" Style="{StaticResource FieldLabelStyle}" RenderTransformOrigin="-1.705,5.718" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <TextBlock Canvas.Left="250" Canvas.Top="133"
@@ -58,7 +58,7 @@
                        Text="{Binding PostName}" Style="{StaticResource FieldValueStyle}"/>
 
             <!-- Ligne 3 : Prénom -->
-            <TextBlock Canvas.Left="52" Canvas.Top="230"
+            <TextBlock x:Name="TxtPrenom" Canvas.Left="52" Canvas.Top="230"
                        FontSize="14"
                        Text="Prénom :" Style="{StaticResource FieldLabelStyle}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <TextBlock Canvas.Left="240" Canvas.Top="151"
@@ -66,7 +66,7 @@
                        Text="{Binding FirstName}" Style="{StaticResource FieldValueStyle}"/>
 
             <!-- Ligne 4 : Lieu & Date de naissance -->
-            <TextBlock Canvas.Left="52" Canvas.Top="250"
+            <TextBlock x:Name="TxtLieuNaissance" Canvas.Left="52" Canvas.Top="250"
                        FontSize="14"
                        Text="Lieu &amp; Date de naissance :" Style="{StaticResource FieldLabelStyle}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <TextBlock Canvas.Left="330" Canvas.Top="169"
@@ -79,7 +79,7 @@
                        Text="{Binding BirthDate, StringFormat=dd-MM-yyyy}" Style="{StaticResource FieldValueStyle}"/>
 
             <!-- Ligne 5 : Ministère -->
-            <TextBlock Canvas.Left="53" Canvas.Top="271"
+            <TextBlock x:Name="TxtMinistere" Canvas.Left="53" Canvas.Top="271"
                        FontSize="14"
                        Text="Ministère :" Style="{StaticResource FieldLabelStyle}"/>
             <TextBlock Canvas.Left="250" Canvas.Top="187"
@@ -87,7 +87,7 @@
                        Text="{Binding Ministry}" Style="{StaticResource FieldValueStyle}"/>
 
             <!-- Ligne 6 : Fonction -->
-            <TextBlock Canvas.Left="53" Canvas.Top="292"
+            <TextBlock x:Name="TxtFonction" Canvas.Left="53" Canvas.Top="292"
                           FontSize="14"
                        Text="Fonction :" Style="{StaticResource FieldLabelStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="68"/>
             <TextBlock Canvas.Left="245" Canvas.Top="205"
@@ -95,7 +95,7 @@
                        Text="{Binding JobTitle}" Style="{StaticResource FieldValueStyle}"/>
 
             <!-- Ligne 7 : Date Ordination -->
-            <TextBlock Canvas.Left="52" Canvas.Top="313"
+            <TextBlock x:Name="TxtDateOrdination" Canvas.Left="52" Canvas.Top="313"
                        FontSize="14"
                        Text="Date Ordination :" Style="{StaticResource FieldLabelStyle}" RenderTransformOrigin="-0.049,2.503" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <TextBlock Canvas.Left="285" Canvas.Top="223"
@@ -108,7 +108,7 @@
             <!-- ===== SECTION SCEAU ET DATES (bas de carte) ===== -->
 
 
-            <TextBlock Canvas.Left="387" Canvas.Top="317"
+            <TextBlock x:Name="TxtDateEmission" Canvas.Left="387" Canvas.Top="317"
                        Text="Fait à Kindu, le"
                        FontFamily="Arial" FontSize="12" FontWeight="Bold"
                        Foreground="#1A1A2E" HorizontalAlignment="Center" VerticalAlignment="Top"/>
@@ -125,7 +125,7 @@
 
 
             <!-- Date d'expiration (en rouge) -->
-            <TextBlock Canvas.Left="383" Canvas.Top="360"
+            <TextBlock x:Name="TxtDateExpiration" Canvas.Left="383" Canvas.Top="360"
                        Text="CETTE CARTE EXPIRE LE"
                        FontFamily="Arial" FontSize="9" FontWeight="Bold"
                        Foreground="Red" HorizontalAlignment="Left" VerticalAlignment="Center"/>
