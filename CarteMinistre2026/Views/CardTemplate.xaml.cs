@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarteMinistre2026.Views
 {
-    internal class CarteTemplate
+    public class CardTemplate
     {
     }
 }
