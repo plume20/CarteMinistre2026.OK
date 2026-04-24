@@ -30,7 +30,7 @@
                 BorderBrush="#2C2C54"
                 BorderThickness="1">
             <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                <views:CardTemplate x:Name="CardTemplateControl" 
+                <Views:CardTemplate x:Name="CardTemplateControl" 
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Center"/>
             </ScrollViewer>

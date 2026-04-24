@@ -1,6 +1,7 @@
-﻿<UserControl x:Class="CarteMinistre2026.Views.CardTemplate"
+<UserControl x:Class="CarteMinistre2026.Views.CardTemplate"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:CarteMinistre2026.Converters"
              Width="600" Height="380">
 
     <UserControl.Resources>
@@ -23,68 +24,82 @@
 
     <Grid>
         <!-- Fond de la carte (image du template) -->
-        <Image Source="/Assets/template_carte2.jpg" Stretch="Uniform"/>
+        <Image Source="/Assets/template_carte3.jpg" Stretch="Uniform"/>
 
         <Canvas>
             <!-- ===== PHOTO (côté gauche) ===== -->
-            <Image x:Name="PhotoImage" 
-                   Canvas.Left="30" Canvas.Top="80"
+            <Image x:Name="ImagePhoto" 
+                   Canvas.Left="432" Canvas.Top="181"
                    Width="110" Height="130"
-                   Stretch="UniformToFill"
-                   Source="{Binding Photo, Converter={StaticResource ByteArrayToImageConverter}}"/>
+                   Stretch="UniformToFill"/>
 
             <!-- ===== EN-TÊTE (titres principaux) ===== -->
 
             <!-- ===== SECTION IDENTITÉ ===== -->
-            <TextBlock Canvas.Left="53" Canvas.Top="150"
+            <TextBlock Canvas.Left="53" Canvas.Top="158"
                        Text="IDENTITÉ"
                        FontFamily="Arial" FontSize="14" FontWeight="Bold"
-                       Foreground="#1A1A2E" TextDecorations="Underline" Height="17" Width="57" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                       Foreground="#1A1A2E" TextDecorations="Underline" Height="17" Width="68" HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
             <!-- Ligne 1 : Nom -->
-            <TextBlock Canvas.Left="52" Canvas.Top="172"
-                       Text="Nom :" Style="{StaticResource FieldLabelStyle}" Height="18" Width="37"/>
+            <TextBlock Canvas.Left="53" Canvas.Top="187"
+                       FontSize="14"
+                       Text="Nom :" Style="{StaticResource FieldLabelStyle}" Height="18" Width="37" RenderTransformOrigin="0.541,0.926"/>
             <TextBlock Canvas.Left="230" Canvas.Top="115"
+                       FontSize="14"
                        Text="{Binding LastName}" Style="{StaticResource FieldValueStyle}"/>
 
             <!-- Ligne 2 : Post Nom -->
-            <TextBlock Canvas.Left="52" Canvas.Top="190"
-                       Text="Post Nom :" Style="{StaticResource FieldLabelStyle}" RenderTransformOrigin="-1.705,5.718"/>
+            <TextBlock Canvas.Left="52" Canvas.Top="210"
+                       FontSize="14"
+                       Text="Post Nom :" Style="{StaticResource FieldLabelStyle}" RenderTransformOrigin="-1.705,5.718" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <TextBlock Canvas.Left="250" Canvas.Top="133"
+                       FontSize="14"
                        Text="{Binding PostName}" Style="{StaticResource FieldValueStyle}"/>
 
             <!-- Ligne 3 : Prénom -->
-            <TextBlock Canvas.Left="52" Canvas.Top="205"
-                       Text="Prénom :" Style="{StaticResource FieldLabelStyle}"/>
+            <TextBlock Canvas.Left="52" Canvas.Top="230"
+                       FontSize="14"
+                       Text="Prénom :" Style="{StaticResource FieldLabelStyle}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <TextBlock Canvas.Left="240" Canvas.Top="151"
+                       FontSize="14"
                        Text="{Binding FirstName}" Style="{StaticResource FieldValueStyle}"/>
 
             <!-- Ligne 4 : Lieu & Date de naissance -->
-            <TextBlock Canvas.Left="52" Canvas.Top="219"
-                       Text="Lieu &amp; Date de naissance :" Style="{StaticResource FieldLabelStyle}"/>
+            <TextBlock Canvas.Left="52" Canvas.Top="250"
+                       FontSize="14"
+                       Text="Lieu &amp; Date de naissance :" Style="{StaticResource FieldLabelStyle}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <TextBlock Canvas.Left="330" Canvas.Top="169"
+                       FontSize="14"
                        Text="{Binding BirthPlace}" Style="{StaticResource FieldValueStyle}"/>
             <TextBlock Canvas.Left="430" Canvas.Top="169"
+                       FontSize="14"
                        Text="," Style="{StaticResource FieldLabelStyle}"/>
             <TextBlock Canvas.Left="440" Canvas.Top="169"
                        Text="{Binding BirthDate, StringFormat=dd-MM-yyyy}" Style="{StaticResource FieldValueStyle}"/>
 
             <!-- Ligne 5 : Ministère -->
-            <TextBlock Canvas.Left="52" Canvas.Top="237"
+            <TextBlock Canvas.Left="53" Canvas.Top="271"
+                       FontSize="14"
                        Text="Ministère :" Style="{StaticResource FieldLabelStyle}"/>
             <TextBlock Canvas.Left="250" Canvas.Top="187"
+                       FontSize="14"
                        Text="{Binding Ministry}" Style="{StaticResource FieldValueStyle}"/>
 
             <!-- Ligne 6 : Fonction -->
-            <TextBlock Canvas.Left="52" Canvas.Top="255"
-                       Text="Fonction :" Style="{StaticResource FieldLabelStyle}"/>
+            <TextBlock Canvas.Left="53" Canvas.Top="292"
+                          FontSize="14"
+                       Text="Fonction :" Style="{StaticResource FieldLabelStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="68"/>
             <TextBlock Canvas.Left="245" Canvas.Top="205"
+                       FontSize="14"
                        Text="{Binding JobTitle}" Style="{StaticResource FieldValueStyle}"/>
 
             <!-- Ligne 7 : Date Ordination -->
-            <TextBlock Canvas.Left="52" Canvas.Top="273"
-                       Text="Date Ordination :" Style="{StaticResource FieldLabelStyle}" RenderTransformOrigin="-0.049,2.503"/>
+            <TextBlock Canvas.Left="52" Canvas.Top="313"
+                       FontSize="14"
+                       Text="Date Ordination :" Style="{StaticResource FieldLabelStyle}" RenderTransformOrigin="-0.049,2.503" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <TextBlock Canvas.Left="285" Canvas.Top="223"
+                       FontSize="12"
                        Text="{Binding OrdinationDate, StringFormat=dd-MM-yyyy}" Style="{StaticResource FieldValueStyle}"/>
 
             <!-- ===== TEXTE D'ASSISTANCE ===== -->
@@ -93,22 +108,27 @@
             <!-- ===== SECTION SCEAU ET DATES (bas de carte) ===== -->
 
 
-            <TextBlock Canvas.Left="396" Canvas.Top="320"
+            <TextBlock Canvas.Left="387" Canvas.Top="317"
                        Text="Fait à Kindu, le"
-                       FontFamily="Arial" FontSize="9"
-                       Foreground="#1A1A2E"/>
+                       FontFamily="Arial" FontSize="12" FontWeight="Bold"
+                       Foreground="#1A1A2E" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <TextBlock Canvas.Left="290" Canvas.Top="290"
                        Text="{Binding IssueDate, StringFormat=dd-MM-yyyy}" 
                        FontFamily="Arial" FontSize="9" FontWeight="Bold"
                        Foreground="#1A1A2E"/>
+            <Image x:Name="Sceau" 
+                    Canvas.Left="311" Canvas.Top="210"
+                    Width="183" Height="130"
+                    Stretch="UniformToFill"
+                    Source="/Assets/Sceau et signature.png" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
 
 
             <!-- Date d'expiration (en rouge) -->
-            <TextBlock Canvas.Left="400" Canvas.Top="300"
+            <TextBlock Canvas.Left="383" Canvas.Top="360"
                        Text="CETTE CARTE EXPIRE LE"
                        FontFamily="Arial" FontSize="9" FontWeight="Bold"
-                       Foreground="Red"/>
+                       Foreground="Red" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             <TextBlock Canvas.Left="400" Canvas.Top="316"
                        Text="{Binding ExpiryDate, StringFormat=dd-MM-yyyy}"
                        FontFamily="Arial" FontSize="11" FontWeight="Bold"

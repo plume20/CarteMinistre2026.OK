@@ -19,10 +19,11 @@ namespace CarteMinistre2026.Converters
                     image.CacheOption = BitmapCacheOption.OnLoad;
                     image.StreamSource = ms;
                     image.EndInit();
+                    image.Freeze(); // Important pour l'utilisation dans plusieurs threads
                     return image;
                 }
             }
-            return null; // Ou une image par défaut
+            return null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
