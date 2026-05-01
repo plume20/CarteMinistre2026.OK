@@ -22,6 +22,7 @@ namespace CarteMinistre2026
     public partial class MainWindow : Window
     {
         private readonly MainViewModel _viewModel;
+        private PreviewView CurrentView;
 
         public MainWindow()
         {
@@ -46,6 +47,7 @@ namespace CarteMinistre2026
         }
         private void ExecutePreview(object parameter)
         {
+            object SelectedEmployee = null;
             if (SelectedEmployee == null) return;
 
             var preview = new PreviewView();

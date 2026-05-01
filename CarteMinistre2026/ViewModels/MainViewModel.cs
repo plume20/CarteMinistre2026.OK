@@ -1,4 +1,5 @@
-﻿using CarteMinistre2026.Helpers;
+﻿using CarteMinistre2026.Data;
+using CarteMinistre2026.Helpers;
 using CarteMinistre2026.Models;
 using CarteMinistre2026.Views;
 using System;
@@ -12,31 +13,12 @@ namespace CarteMinistre2026.ViewModels
 {
     public class MainViewModel : ObservableObject
     {
+        // ===== CHAMPS PRIVÉS =====
         private object _currentView;
         private ObservableCollection<Employee> _employees;
         private Employee _selectedEmployee;
 
-        public MainViewModel()
-        {
-            Employees = new ObservableCollection<Employee>();
-
-            // Commandes
-            ImportCommand = new RelayCommand(ExecuteImport);
-            PreviewCommand = new RelayCommand(ExecutePreview, CanExecutePreview);
-            PrintCommand = new RelayCommand(ExecutePrint, CanExecutePreview);
-            DesignerCommand = new RelayCommand(ExecuteDesigner);
-            HistoryCommand = new RelayCommand(ExecuteHistory);
-            RefreshCommand = new RelayCommand(ExecuteRefresh);
-            QuitCommand = new RelayCommand(ExecuteQuit);
-            ShowImportCommand = new RelayCommand(ExecuteShowImport);
-            ShowEmployeeListCommand = new RelayCommand(ExecuteShowEmployeeList);
-
-            // Vue par défaut
-            CurrentView = CreateEmployeeListView();
-        }
-
         // ===== PROPRIÉTÉS =====
-
         public object CurrentView
         {
             get => _currentView;
@@ -64,21 +46,37 @@ namespace CarteMinistre2026.ViewModels
             {
                 _selectedEmployee = value;
                 OnPropertyChanged(nameof(SelectedEmployee));
-                CommandManager.InvalidateRequerySuggested();
             }
         }
 
         // ===== COMMANDES =====
-
-        public ICommand ImportCommand { get; }
+        public ICommand ShowImportCommand { get; }
+        public ICommand ShowEmployeeListCommand { get; }
         public ICommand PreviewCommand { get; }
         public ICommand PrintCommand { get; }
         public ICommand DesignerCommand { get; }
         public ICommand HistoryCommand { get; }
         public ICommand RefreshCommand { get; }
         public ICommand QuitCommand { get; }
-        public ICommand ShowImportCommand { get; }
-        public ICommand ShowEmployeeListCommand { get; }
+
+        // ===== CONSTRUCTEUR =====
+        public MainViewModel()
+        {
+            Employees = new ObservableCollection<Employee>();
+
+            // Initialiser les commandes
+            ShowImportCommand = new RelayCommand(ExecuteShowImport);
+            ShowEmployeeListCommand = new RelayCommand(ExecuteShowEmployeeList);
+            PreviewCommand = new RelayCommand(ExecutePreview);
+            PrintCommand = new RelayCommand(ExecutePrint);
+            DesignerCommand = new RelayCommand(ExecuteDesigner);
+            HistoryCommand = new RelayCommand(ExecuteHistory);
+            RefreshCommand = new RelayCommand(ExecuteRefresh);
+            QuitCommand = new RelayCommand(ExecuteQuit);
+
+            // Vue par défaut : liste des employés
+            CurrentView = CreateEmployeeListView();
+        }
 
         // ===== MÉTHODES D'EXÉCUTION =====
 
@@ -91,22 +89,17 @@ namespace CarteMinistre2026.ViewModels
         private void ExecuteShowEmployeeList(object parameter)
         {
             CurrentView = CreateEmployeeListView();
-        }
-
-        private void ExecuteImport(object parameter)
-        {
-            var importView = new ImportView();
-            CurrentView = importView;
-        }
-
-        private bool CanExecutePreview(object parameter)
-        {
-            return SelectedEmployee != null;
+            LoadEmployees();
         }
 
         private void ExecutePreview(object parameter)
         {
-            if (SelectedEmployee == null) return;
+            if (SelectedEmployee == null)
+            {
+                MessageBox.Show("Veuillez sélectionner un employé.", "Information",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
 
             var preview = new PreviewView();
             preview.SetEmployee(SelectedEmployee);
@@ -115,8 +108,14 @@ namespace CarteMinistre2026.ViewModels
 
         private void ExecutePrint(object parameter)
         {
-            if (SelectedEmployee == null) return;
-            // À implémenter plus tard
+            if (SelectedEmployee == null)
+            {
+                MessageBox.Show("Veuillez sélectionner un employé.", "Information",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            // TODO: Implémenter l'impression
+            MessageBox.Show("Impression à implémenter", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void ExecuteDesigner(object parameter)
@@ -155,9 +154,9 @@ namespace CarteMinistre2026.ViewModels
             Employees.Clear();
             try
             {
-                using (var db = new Data.AppDbContext())
+                using (var db = new AppDbContext())
                 {
-                    var employeesFromDb = db.Employees.ToList();
+                    var employeesFromDb = db.Employees.OrderBy(e => e.LastName).ToList();
                     foreach (var emp in employeesFromDb)
                     {
                         Employees.Add(emp);
@@ -166,8 +165,7 @@ namespace CarteMinistre2026.ViewModels
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erreur chargement : {ex.Message}", "Erreur",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
+                // Silencieux au démarrage si la base n'existe pas encore
             }
         }
     }
