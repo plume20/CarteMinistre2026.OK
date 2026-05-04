@@ -1,12 +1,9 @@
-﻿using CarteMinistre2026.Models;
-using ODSReaderWriter;
-using OfficeOpenXml;
+﻿using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using System.Linq;
-using Zaretto.ODS;
+using CarteMinistre2026.Models;
 
 namespace CarteMinistre2026.Services
 {
@@ -14,136 +11,144 @@ namespace CarteMinistre2026.Services
     {
         public List<Employee> ImportFromFile(string filePath)
         {
-            var extension = Path.GetExtension(filePath).ToLower();
-
-            DataTable dataTable = new DataTable();
+            string extension = Path.GetExtension(filePath).ToLower();
 
             if (extension == ".xlsx" || extension == ".xls")
-            {
-                dataTable = ImportFromExcel(filePath);
-            }
+                return ImportFromExcel(filePath);
             else if (extension == ".csv")
-            {
-                dataTable = ImportFromCsv(filePath);
-            }
+                return ImportFromCsv(filePath);
             else if (extension == ".ods")
-            {
-                dataTable = ImportFromOds(filePath);
-            }
+                return ImportFromOds(filePath);
             else
-            {
                 throw new NotSupportedException($"Le format '{extension}' n'est pas supporté.");
-            }
-
-            return MapDataTableToEmployees(dataTable);
         }
 
-        private DataTable ImportFromExcel(string filePath)
+        private List<Employee> ImportFromExcel(string filePath)
         {
-            DataTable table = new DataTable();
+            var employees = new List<Employee>();
 
             using (var package = new ExcelPackage(new FileInfo(filePath)))
             {
                 var worksheet = package.Workbook.Worksheets[0];
+                int rowCount = worksheet.Dimension.Rows;
+                int colCount = worksheet.Dimension.Columns;
 
-                // Ajouter les colonnes
-                for (int col = 1; col <= worksheet.Dimension.Columns; col++)
+                for (int row = 2; row <= rowCount; row++)
                 {
-                    table.Columns.Add(worksheet.Cells[1, col].Text);
-                }
-
-                // Ajouter les lignes (à partir de la ligne 2)
-                for (int row = 2; row <= worksheet.Dimension.Rows; row++)
-                {
-                    DataRow dataRow = table.NewRow();
-                    for (int col = 1; col <= worksheet.Dimension.Columns; col++)
+                    var emp = new Employee
                     {
-                        dataRow[col - 1] = worksheet.Cells[row, col].Text;
-                    }
-                    table.Rows.Add(dataRow);
+                        LastName = worksheet.Cells[row, 1].Text,
+                        PostName = worksheet.Cells[row, 2].Text,
+                        FirstName = worksheet.Cells[row, 3].Text,
+                        BirthPlace = worksheet.Cells[row, 4].Text,
+                        BirthDate = ParseDate(worksheet.Cells[row, 5].Text),
+                        Ministry = worksheet.Cells[row, 6].Text,
+                        JobTitle = worksheet.Cells[row, 7].Text,
+                        OrdinationDate = ParseDate(worksheet.Cells[row, 8].Text),
+                        IssueDate = DateTime.Now,
+                        ExpiryDate = DateTime.Now.AddYears(2)
+                    };
+                    employees.Add(emp);
                 }
             }
-
-            return table;
+            return employees;
         }
 
-        private DataTable ImportFromCsv(string filePath)
+        private List<Employee> ImportFromCsv(string filePath)
         {
-            DataTable table = new DataTable();
+            var employees = new List<Employee>();
             string[] lines = File.ReadAllLines(filePath);
 
-            if (lines.Length == 0) return table;
-
-            // Première ligne = en-têtes
-            string[] headers = lines[0].Split(',');
-            foreach (string header in headers)
-            {
-                table.Columns.Add(header.Trim());
-            }
-
-            // Lignes suivantes = données
             for (int i = 1; i < lines.Length; i++)
             {
                 string[] values = lines[i].Split(',');
-                DataRow row = table.NewRow();
-                for (int j = 0; j < headers.Length && j < values.Length; j++)
-                {
-                    row[j] = values[j].Trim();
-                }
-                table.Rows.Add(row);
-            }
 
-            return table;
-        }
-
-        private DataTable ImportFromOds(string filePath)
-        {
-            var odsReader = new ODSReaderWriter();
-            var dataSet = odsReader.ReadOdsFile(filePath);
-
-            if (dataSet.Tables.Count > 0)
-                return dataSet.Tables[0];
-            else
-                return new DataTable();
-        }
-
-        private List<Employee> MapDataTableToEmployees(DataTable table)
-        {
-            var employees = new List<Employee>();
-
-            foreach (DataRow row in table.Rows)
-            {
                 var emp = new Employee
                 {
-                    LastName = GetValue(row, 0),
-                    PostName = GetValue(row, 1),
-                    FirstName = GetValue(row, 2),
-                    BirthPlace = GetValue(row, 3),
-                    BirthDate = ParseDate(GetValue(row, 4)),
-                    Ministry = GetValue(row, 5),
-                    JobTitle = GetValue(row, 6),
-                    OrdinationDate = ParseDate(GetValue(row, 7)),
+                    LastName = values.Length > 0 ? values[0] : "",
+                    PostName = values.Length > 1 ? values[1] : "",
+                    FirstName = values.Length > 2 ? values[2] : "",
+                    BirthPlace = values.Length > 3 ? values[3] : "",
+                    BirthDate = ParseDate(values.Length > 4 ? values[4] : ""),
+                    Ministry = values.Length > 5 ? values[5] : "",
+                    JobTitle = values.Length > 6 ? values[6] : "",
+                    OrdinationDate = ParseDate(values.Length > 7 ? values[7] : ""),
                     IssueDate = DateTime.Now,
                     ExpiryDate = DateTime.Now.AddYears(2)
                 };
-
                 employees.Add(emp);
+            }
+            return employees;
+        }
+
+        private List<Employee> ImportFromOds(string filePath)
+        {
+            // Méthode alternative sans OdsReaderWriter
+            // Un fichier ODS est un ZIP contenant content.xml
+            var employees = new List<Employee>();
+
+            try
+            {
+                using (var zip = System.IO.Compression.ZipFile.OpenRead(filePath))
+                {
+                    var contentEntry = zip.GetEntry("content.xml");
+                    if (contentEntry != null)
+                    {
+                        using (var stream = contentEntry.Open())
+                        {
+                            var doc = new System.Xml.XmlDocument();
+                            doc.Load(stream);
+
+                            var nsManager = new System.Xml.XmlNamespaceManager(doc.NameTable);
+                            nsManager.AddNamespace("table", "urn:oasis:names:tc:opendocument:xmlns:table:1.0");
+                            nsManager.AddNamespace("text", "urn:oasis:names:tc:opendocument:xmlns:text:1.0");
+
+                            var rows = doc.SelectNodes("//table:table-row", nsManager);
+
+                            if (rows != null && rows.Count > 1)
+                            {
+                                for (int i = 1; i < rows.Count; i++)
+                                {
+                                    var cells = rows[i].SelectNodes("table:table-cell/text:p", nsManager);
+                                    if (cells != null && cells.Count >= 6)
+                                    {
+                                        var emp = new Employee
+                                        {
+                                            LastName = cells[0]?.InnerText ?? "",
+                                            PostName = cells.Count > 1 ? cells[1]?.InnerText ?? "" : "",
+                                            FirstName = cells.Count > 2 ? cells[2]?.InnerText ?? "" : "",
+                                            BirthPlace = cells.Count > 3 ? cells[3]?.InnerText ?? "" : "",
+                                            BirthDate = ParseDate(cells.Count > 4 ? cells[4]?.InnerText ?? "" : ""),
+                                            Ministry = cells.Count > 5 ? cells[5]?.InnerText ?? "" : "",
+                                            JobTitle = cells.Count > 6 ? cells[6]?.InnerText ?? "" : "",
+                                            OrdinationDate = ParseDate(cells.Count > 7 ? cells[7]?.InnerText ?? "" : ""),
+                                            IssueDate = DateTime.Now,
+                                            ExpiryDate = DateTime.Now.AddYears(2)
+                                        };
+                                        employees.Add(emp);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                throw new Exception("Impossible de lire le fichier ODS. Vérifiez le format.");
             }
 
             return employees;
         }
 
-        private string GetValue(DataRow row, int index)
-        {
-            if (row.Table.Columns.Count > index && row[index] != null)
-                return row[index].ToString();
-            return "";
-        }
-
         private DateTime? ParseDate(string text)
         {
+            if (string.IsNullOrWhiteSpace(text))
+                return null;
+
             if (DateTime.TryParse(text, out DateTime result))
                 return result;
+
             return null;
         }
     }
