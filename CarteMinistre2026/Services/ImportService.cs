@@ -1,6 +1,7 @@
 ﻿using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.IO.Compression;
 using System.Data;
 using System.IO;
 using CarteMinistre2026.Models;

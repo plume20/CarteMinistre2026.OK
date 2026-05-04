@@ -165,7 +165,7 @@ namespace CarteMinistre2026.ViewModels
             }
             catch (Exception ex)
             {
-                // Silencieux au démarrage si la base n'existe pas encore
+                throw new Exception($"Impossible de lire le fichier ODS : {ex.Message}");
             }
         }
     }
